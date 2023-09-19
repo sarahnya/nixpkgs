@@ -1,6 +1,7 @@
 { lib
 , fetchPypi
 , buildPythonPackage
+, setuptools
 , traits
 , pyface
 , pythonOlder
@@ -9,7 +10,7 @@
 buildPythonPackage rec {
   pname = "traitsui";
   version = "8.0.0";
-  format = "setuptools";
+  format = "pyproject";
 
   disabled = pythonOlder "3.7";
 
@@ -17,6 +18,10 @@ buildPythonPackage rec {
     inherit pname version;
     hash = "sha256-kBudHLxFUT4Apzl2d7CYRBsod0tojzChWbrUgBv0A2Q=";
   };
+
+  nativeBuildInputs = [
+    setuptools
+  ];
 
   propagatedBuildInputs = [
     traits
