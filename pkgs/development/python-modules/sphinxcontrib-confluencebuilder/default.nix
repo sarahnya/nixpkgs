@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, flit-core
 , docutils
 , sphinx
 , requests
@@ -10,11 +11,17 @@
 buildPythonPackage rec {
   pname = "sphinxcontrib-confluencebuilder";
   version = "2.3.0";
+  format = "pyproject";
 
   src = fetchPypi {
-    inherit pname version;
+    pname = "sphinxcontrib_confluencebuilder";
+    inherit version;
     hash = "sha256-Zpe2n131afnq4IhQEEZtquvSEkkjv/uznXt2tQhGfZA=";
   };
+
+  nativeBuildInputs = [
+    flit-core
+  ];
 
   propagatedBuildInputs = [
     docutils
