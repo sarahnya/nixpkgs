@@ -6,7 +6,9 @@
 , rustPlatform
 , cargo
 , rustc
+, setuptools
 , setuptools-rust
+, wheel
 , libiconv
 , requests
 , regex
@@ -25,12 +27,14 @@ let
 in
 buildPythonPackage {
   inherit pname version src postPatch;
-  format = "setuptools";
+  format = "pyproject";
 
   disabled = pythonOlder "3.8";
 
   nativeBuildInput = [
+    setuptools
     setuptools-rust
+    wheel
   ];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
