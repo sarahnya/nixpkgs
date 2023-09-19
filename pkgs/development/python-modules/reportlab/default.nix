@@ -3,6 +3,7 @@
 , fetchPypi
 , freetype
 , pillow
+, setuptools
 , glibcLocales
 , python
 , isPyPy
@@ -24,9 +25,6 @@ in buildPythonPackage rec {
   };
 
   postPatch = ''
-    substituteInPlace setup.py \
-      --replace "mif = findFile(d,'ft2build.h')" "mif = findFile('${lib.getDev ft}','ft2build.h')"
-
     # Remove all the test files that require access to the internet to pass.
     rm tests/test_lib_utils.py
     rm tests/test_platypus_general.py
@@ -36,6 +34,10 @@ in buildPythonPackage rec {
     rm tests/test_graphics_render.py
     rm tests/test_graphics_charts.py
   '';
+
+  nativeBuildInputs = [
+    setuptools
+  ];
 
   buildInputs = [
     ft
