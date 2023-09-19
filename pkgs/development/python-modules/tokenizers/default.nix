@@ -61,32 +61,29 @@ in
 buildPythonPackage rec {
   pname = "tokenizers";
   version = "0.14.0";
+  format = "pyproject";
 
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "huggingface";
-    repo = pname;
+    repo = "tokenizers";
     rev = "refs/tags/v${version}";
     hash = "sha256-zCpKNMzIdQ0lLWdn4cENtBEMTA7+fg+N6wQGvio9llE=";
   };
 
-  postPatch = ''
-    ln -s ${./Cargo.lock} Cargo.lock
-  '';
-
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
+  cargoDeps = rustPlatform.fetchCargoTarball {
+    inherit src sourceRoot;
+    name = "${pname}-${version}";
+    hash = "sha256-0oR8FuLm582ZWx5ZzVItFj5/UbNYzcrCqbsmaLVFoSI=";
   };
 
   sourceRoot = "${src.name}/bindings/python";
 
   nativeBuildInputs = [
     pkg-config
-    setuptools-rust
     rustPlatform.cargoSetupHook
-    cargo
-    rustc
+    rustPlatform.maturinBuildHook
   ];
 
   buildInputs = [
