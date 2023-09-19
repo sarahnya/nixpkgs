@@ -110,6 +110,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
+    changelog = "https://github.com/magic-wormhole/magic-wormhole/blob/${version}/NEWS.md";
     description = "Securely transfer data between computers";
     homepage = "https://github.com/magic-wormhole/magic-wormhole";
     license = licenses.mit;
