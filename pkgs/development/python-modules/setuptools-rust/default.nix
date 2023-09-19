@@ -6,6 +6,7 @@
 , semantic-version
 , setuptools
 , setuptools-scm
+, tomli
 , typing-extensions
 }:
 
@@ -30,6 +31,8 @@ buildPythonPackage rec {
     semantic-version
     setuptools
     typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.11") [
+    tomli
   ];
 
   pythonImportsCheck = [
