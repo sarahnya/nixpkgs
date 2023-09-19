@@ -25,14 +25,6 @@ buildPythonPackage rec {
     hash = "sha256-A2+5FBv0IhTJPkwgd7je+B9Ac64UHJEa3HRBbWr2FxM=";
   };
 
-  patches = [
-    (fetchpatch {
-      # pygments 2.14 compat for tests
-      url = "https://github.com/django-extensions/django-extensions/commit/61ebfe38f8fca9225b41bec5418e006e6a8815e1.patch";
-      hash = "sha256-+sxaQMmKi/S4IlfHqARPGhaqc+F1CXUHVFyeU/ArW2U=";
-    })
-  ];
-
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace "--cov=django_extensions --cov-report html --cov-report term" ""
