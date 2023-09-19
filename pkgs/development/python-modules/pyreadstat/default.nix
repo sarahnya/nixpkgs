@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , buildPythonPackage
-, cython
+, cython_3
 , fetchFromGitHub
 , libiconv
 , pandas
@@ -26,7 +26,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [
-    cython
+    cython_3
   ];
 
   buildInputs = [
