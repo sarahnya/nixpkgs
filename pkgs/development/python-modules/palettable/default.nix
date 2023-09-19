@@ -2,18 +2,22 @@
 , buildPythonPackage
 , fetchPypi
 , pytestCheckHook
+, setuptools
 }:
 
 buildPythonPackage rec {
   pname = "palettable";
   version = "3.3.3";
-
-  format = "setuptools";
+  format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
     sha256 = "sha256-CU3X2aX8HMpIVHc+XB/GoxWzO9WzqPRwZJKPrK8EkKg=";
   };
+
+  nativeBuildInputs = [
+    setuptools
+  ];
 
   nativeCheckInputs = [
     pytestCheckHook
