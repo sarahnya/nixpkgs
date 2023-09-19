@@ -2,6 +2,11 @@
 , stdenv
 , buildPythonPackage
 , fetchPypi
+
+# build-system
+, setuptools
+
+# dependencies
 , spake2
 , pynacl
 , six
@@ -9,11 +14,15 @@
 , twisted
 , autobahn
 , automat
-, hkdf
 , tqdm
 , click
 , humanize
 , txtorcon
+
+# optional-dependencies
+, noiseprotocol
+
+# tests
 , nettools
 , mock
 , magic-wormhole-transit-relay
@@ -24,11 +33,16 @@
 buildPythonPackage rec {
   pname = "magic-wormhole";
   version = "0.13.0";
+  format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-rDvWgoYnDn8UnAYUmo5Anl+jTX/rDoiESibSnu0tFRY=";
+    hash = "sha256-rDvWgoYnDn8UnAYUmo5Anl+jTX/rDoiESibSnu0tFRY=";
   };
+
+  nativeBuildInputs = [
+    setuptools
+  ];
 
   propagatedBuildInputs = [
     spake2
@@ -38,25 +52,29 @@ buildPythonPackage rec {
     twisted
     autobahn
     automat
-    hkdf
     tqdm
     click
     humanize
     txtorcon
-  ] ++ autobahn.optional-dependencies.twisted
+  ]
+  ++ autobahn.optional-dependencies.twisted
   ++ twisted.optional-dependencies.tls;
+
+  passthru.optional-dependencies = {
+    dilation = [
+      noiseprotocol
+    ];
+  };
 
   nativeCheckInputs = [
     mock
     magic-wormhole-transit-relay
     magic-wormhole-mailbox-server
     pytestCheckHook
-  ];
+  ]
+  ++ passthru.optional-dependencies.dilation;
 
-  disabledTests = [
-    # Expected: (<class 'wormhole.errors.WrongPasswordError'>,) Got: Failure instance: Traceback (failure with no frames): <class 'wormhole.errors.LonelyError'>:
-    "test_welcome"
-  ] ++ lib.optionals stdenv.isDarwin [
+  disabledTests = lib.optionals stdenv.isDarwin [
     # These tests doesn't work within Darwin's sandbox
     "test_version"
     "test_text"
