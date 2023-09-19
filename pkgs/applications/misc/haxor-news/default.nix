@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python3 }:
+{ lib, fetchFromGitHub, fetchPypi, python3 }:
 
 
 let
@@ -18,7 +18,7 @@ let
       # Use click 7
       click = super.click.overridePythonAttrs (old: rec {
         version = "7.1.2";
-        src = super.fetchPypi {
+        src = fetchPypi {
           pname = "click";
           inherit version;
           hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
