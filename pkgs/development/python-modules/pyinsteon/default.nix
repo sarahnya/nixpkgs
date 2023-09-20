@@ -4,7 +4,6 @@
 , async-generator
 , buildPythonPackage
 , fetchFromGitHub
-, fetchpatch
 , pypubsub
 , pyserial
 , pyserial-asyncio
@@ -28,15 +27,6 @@ buildPythonPackage rec {
     rev = "refs/tags/${version}";
     hash = "sha256-H2rgPA0GW6neFIHZVZxmAP50HJUPCWDZcJ90QxLGXJ8=";
   };
-
-  patches = [
-    # https://github.com/pyinsteon/pyinsteon/pull/361
-    (fetchpatch {
-      name = "relax-setuptools-dependency.patch";
-      url = "https://github.com/pyinsteon/pyinsteon/commit/676bc5fff11b73a4c3fd189a6ac6d3de9ca21ae0.patch";
-      hash = "sha256-kTu1+IwDrcdqelyK/vfhxw8MQBis5I1jag7YTytKQhs=";
-    })
-  ];
 
   nativeBuildInputs = [
     setuptools
