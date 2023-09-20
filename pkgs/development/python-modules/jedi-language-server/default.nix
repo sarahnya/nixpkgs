@@ -9,7 +9,7 @@
 , pydantic
 , pyhamcrest
 , pytestCheckHook
-, python-jsonrpc-server
+, python-lsp-jsonrpc
 , pythonOlder
 , pythonRelaxDepsHook
 }:
@@ -48,7 +48,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [
     pytestCheckHook
     pyhamcrest
-    python-jsonrpc-server
+    python-lsp-jsonrpc
   ];
 
   preCheck = ''
