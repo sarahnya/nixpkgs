@@ -9,6 +9,7 @@
 , pytestCheckHook
 , pythonOlder
 , ruamel-yaml
+, torch
 , tqdm
 }:
 
@@ -43,6 +44,7 @@ buildPythonPackage rec {
     pydantic
     pymongo
     pytestCheckHook
+    torch
   ];
 
   pythonImportsCheck = [
