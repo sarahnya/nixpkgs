@@ -8,20 +8,19 @@
 
 buildPythonPackage rec {
   pname = "sphinx-prompt";
-  version = "1.8.0";
+  version = "1.7.0"; # read before updating past 1.7.0 https://github.com/sbrunner/sphinx-prompt/issues/398
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "sbrunner";
     repo = "sphinx-prompt";
     rev = "refs/tags/${version}";
-    hash = "sha256-jgPD5DBpcj+/FqCI+lkycyYqQHnE8DQLrGLmr5iYBqE=";
+    hash = "sha256-/XxUSsW8Bowks7P+d6iTlklyMIfTb2otXva/VtRVAkM=";
   };
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace '"poetry-plugin-tweak-dependencies-version", ' "" \
-      --replace 'include = "sphinx-prompt' 'include = "sphinx_prompt'
   '';
 
   nativeBuildInputs = [
