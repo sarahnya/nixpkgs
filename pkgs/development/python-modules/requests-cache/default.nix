@@ -12,6 +12,7 @@
 , psutil
 , pymongo
 , pytestCheckHook
+, pytest-rerunfailures
 , pytest-xdist
 , pythonOlder
 , pyyaml
@@ -20,6 +21,8 @@
 , requests-mock
 , responses
 , rich
+, tenacity
+, time-machine
 , timeout-decorator
 , ujson
 , urllib3
@@ -81,10 +84,13 @@ buildPythonPackage rec {
   nativeCheckInputs = [
     psutil
     pytestCheckHook
+    pytest-rerunfailures
     pytest-xdist
     requests-mock
     responses
     rich
+    tenacity
+    time-machine
     timeout-decorator
   ]
   ++ passthru.optional-dependencies.json
