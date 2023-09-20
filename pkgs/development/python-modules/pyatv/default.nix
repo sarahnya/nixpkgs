@@ -10,16 +10,21 @@
 , miniaudio
 , netifaces
 , protobuf
+, pydantic
+, pydantic-settings
+, pyfakefs
 , pytest-aiohttp
 , pytest-asyncio
 , pytest-httpserver
 , pytest-timeout
+, pytest-xdist
 , pytestCheckHook
 , pythonRelaxDepsHook
 , pythonOlder
 , requests
 , srptools
 , stdenv
+, tabulate
 , zeroconf
 }:
 
@@ -70,22 +75,23 @@ buildPythonPackage rec {
     miniaudio
     netifaces
     protobuf
+    pydantic
+    pydantic-settings
     requests
     srptools
+    tabulate
     zeroconf
   ];
 
   nativeCheckInputs = [
     deepdiff
+    pyfakefs
     pytest-aiohttp
     pytest-asyncio
     pytest-httpserver
     pytest-timeout
+    pytest-xdist
     pytestCheckHook
-  ];
-
-  pytestFlagsArray = [
-    "--asyncio-mode=legacy"
   ];
 
   disabledTests = lib.optionals (stdenv.isDarwin) [
