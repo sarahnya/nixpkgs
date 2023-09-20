@@ -2,7 +2,6 @@
 , lib
 , buildPythonPackage
 , fetchFromGitHub
-, fetchpatch
 , numpy
 , scipy
 , cython
@@ -17,6 +16,7 @@
 buildPythonPackage rec {
   pname = "pomegranate";
   version = "1.0.0";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     repo = pname;
